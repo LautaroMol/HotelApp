@@ -12,6 +12,7 @@ namespace Reservas.BData
     {
         public DbSet<Huespedes> Huesped => Set<Huespedes>();
         public DbSet<Habitacion> Habitaciones => Set<Habitacion>();
+        public DbSet<Reserva> Reservas => Set<Reserva>();
         public Context(DbContextOptions options) : base(options) 
         { 
         }
