@@ -35,12 +35,19 @@ namespace Reservas.BData.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
-                    b.Property<int>("Precio")
+                    b.Property<decimal>("Precio")
                         .HasMaxLength(10)
-                        .HasColumnType("int");
+                        .HasColumnType("Decimal(10,2)");
+
+                    b.Property<decimal>("Senia")
+                        .HasMaxLength(10)
+                        .HasColumnType("Decimal(10,2)");
 
                     b.Property<int>("camas")
                         .HasMaxLength(2)
+                        .HasColumnType("int");
+
+                    b.Property<int>("idres")
                         .HasColumnType("int");
 
                     b.HasKey("Nhab");
@@ -97,6 +104,15 @@ namespace Reservas.BData.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("DNI")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("HabitacionNhab")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Nhab")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("fecha_fin")
                         .HasColumnType("datetime2");
 
@@ -104,6 +120,8 @@ namespace Reservas.BData.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HabitacionNhab");
 
                     b.HasIndex(new[] { "Id" }, "Id_Reserva_UQ")
                         .IsUnique();
@@ -116,6 +134,18 @@ namespace Reservas.BData.Migrations
                     b.HasOne("Reservas.BData.Data.Entity.Reserva", null)
                         .WithMany("huespedes")
                         .HasForeignKey("ReservaId");
+                });
+
+            modelBuilder.Entity("Reservas.BData.Data.Entity.Reserva", b =>
+                {
+                    b.HasOne("Reservas.BData.Data.Entity.Habitacion", null)
+                        .WithMany("reservas")
+                        .HasForeignKey("HabitacionNhab");
+                });
+
+            modelBuilder.Entity("Reservas.BData.Data.Entity.Habitacion", b =>
+                {
+                    b.Navigation("reservas");
                 });
 
             modelBuilder.Entity("Reservas.BData.Data.Entity.Reserva", b =>

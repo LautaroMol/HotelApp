@@ -16,6 +16,10 @@ namespace Reservas.BData.Data.Entity
         public DateTime fecha_inicio { get; set; }
         [Required(ErrorMessage = "La Fecha de fin es Obligatoria")]
         public DateTime fecha_fin { get; set; }
+        [Required(ErrorMessage = "El Dni del dueño de la reserva es obligatorio")]
+        public int DNI { get; set; }
+        [Required(ErrorMessage = "El numero de la habitacion es obligatoria")]
+        public int Nhab { get; set; }
         public List<Huespedes> huespedes { get; set; }
 
         
