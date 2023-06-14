@@ -20,9 +20,10 @@ namespace Reservas.BData.Data.Entity
         public string Apellidos { get; set; } = "";
         [Required(ErrorMessage = "El Correo es Obligatorio")]
         [MaxLength(30, ErrorMessage = "Solo se aceptan hasta 30 caracteres en el Correo")]
-        public string Correo { get; set; } = "";
-        [Required(ErrorMessage = "La Tarjeta es Obligatoria")]
-        [MaxLength(20, ErrorMessage = "Solo se aceptan hasta 20 caracteres en La Tarjeta")]
-        public string Tarjeta { get; set; } = "";
+        public bool checking { get; set; }
+        public int Num_Hab { get; set; }
+        public int PersonaId { get; set; }
+
+
     }
 }

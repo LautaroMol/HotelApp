@@ -20,8 +20,9 @@ namespace Reservas.BData.Data.Entity
         public int DNI { get; set; }
         [Required(ErrorMessage = "El numero de la habitacion es obligatoria")]
         public int Nhab { get; set; }
-        public List<Huespedes> huespedes { get; set; }
-
+        public int idPersona { get; set; } 
+        public List<Habitacion> habitaciones { get; set; }
+        public List <Persona> personas { get; set; }
         
     }
 }
