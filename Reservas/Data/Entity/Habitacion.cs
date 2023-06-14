@@ -23,7 +23,5 @@ namespace Reservas.BData.Data.Entity
         public decimal Precio { get; set; }
         [MaxLength(10, ErrorMessage = "Solo se aceptan hasta 10 caracteres en la seña y 2 decimales")]
         public decimal Senia { get; set; }
-        public int idres { get; set; }
-        public List<Huespedes> huespedes { get; set; }
     }
 }
