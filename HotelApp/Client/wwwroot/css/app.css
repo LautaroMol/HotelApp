@@ -18,10 +18,6 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
 .content {
     padding-top: 1.1rem;
 }
@@ -67,35 +63,56 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
-.loading-progress {
-    position: relative;
-    display: block;
-    width: 8rem;
-    height: 8rem;
-    margin: 20vh auto 1rem auto;
+.bg-fondo {
+    background-color: #e1e1e1 !important;
 }
 
-    .loading-progress circle {
-        fill: none;
-        stroke: #e0e0e0;
-        stroke-width: 0.6rem;
-        transform-origin: 50% 50%;
-        transform: rotate(-90deg);
-    }
-
-        .loading-progress circle:last-child {
-            stroke: #1b6ec2;
-            stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
-            transition: stroke-dasharray 0.05s ease-in-out;
-        }
-
-.loading-progress-text {
-    position: absolute;
-    text-align: center;
-    font-weight: bold;
-    inset: calc(20vh + 3.25rem) 0 auto 0.2rem;
+.bg-primario {
+    background-color: #265DAE;
 }
 
-    .loading-progress-text:after {
-        content: var(--blazor-load-percentage-text, "Loading");
-    }
+.bg-rojo-card {
+    background-color: #E53232 !important;
+}
+
+.bg-verde-card {
+    background-color: #38CB35 !important;
+}
+
+.bg-lila-card {
+    background-color: #9327D6 !important;
+}
+
+.logo {
+    font-size: 130px;
+}
+
+.sin-borde:focus {
+    outline: none;
+}
+
+.gris-claro {
+    color: #616161;
+}
+
+.bor {
+    border-radius: 122px;
+}
+
+.reparacion {
+    font-weight: 900;
+    color: #9327D6;
+}
+
+.font-xs {
+    font-size: 12px;
+}
+
+.border-radius {
+    border-radius: 0.75rem;
+}
+
+.border-radius-top {
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+}
