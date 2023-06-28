@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Reservas.BData;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,12 +12,20 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<Context>(opciones => opciones.UseSqlServer("name=Conn"));
 
+builder.Services.AddSwaggerGen(c =>
+c.SwaggerDoc("V1", new OpenApiInfo { Title = "Habitaciones", Version = "v1" })
+);
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Habitaciones v1"));
 }
 else
 {   

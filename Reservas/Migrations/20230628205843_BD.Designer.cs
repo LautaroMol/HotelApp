@@ -12,8 +12,8 @@ using Reservas.BData;
 namespace Reservas.BData.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230614135357_Primer")]
-    partial class Primer
+    [Migration("20230628205843_BD")]
+    partial class BD
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,9 +53,6 @@ namespace Reservas.BData.Migrations
                         .HasMaxLength(2)
                         .HasColumnType("int");
 
-                    b.Property<int>("idres")
-                        .HasColumnType("int");
-
                     b.HasKey("Nhab");
 
                     b.HasIndex("ReservaId");
@@ -76,9 +73,6 @@ namespace Reservas.BData.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("HabitacionNhab")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombres")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -95,8 +89,6 @@ namespace Reservas.BData.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("DNI");
-
-                    b.HasIndex("HabitacionNhab");
 
                     b.HasIndex(new[] { "DNI" }, "Huespedes_DNI_UQ")
                         .IsUnique();
@@ -185,23 +177,11 @@ namespace Reservas.BData.Migrations
                         .HasForeignKey("ReservaId");
                 });
 
-            modelBuilder.Entity("Reservas.BData.Data.Entity.Huespedes", b =>
-                {
-                    b.HasOne("Reservas.BData.Data.Entity.Habitacion", null)
-                        .WithMany("huespedes")
-                        .HasForeignKey("HabitacionNhab");
-                });
-
             modelBuilder.Entity("Reservas.BData.Data.Entity.Persona", b =>
                 {
                     b.HasOne("Reservas.BData.Data.Entity.Reserva", null)
                         .WithMany("personas")
                         .HasForeignKey("ReservaId");
-                });
-
-            modelBuilder.Entity("Reservas.BData.Data.Entity.Habitacion", b =>
-                {
-                    b.Navigation("huespedes");
                 });
 
             modelBuilder.Entity("Reservas.BData.Data.Entity.Reserva", b =>

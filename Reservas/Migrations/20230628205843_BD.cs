@@ -6,11 +6,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Reservas.BData.Migrations
 {
     /// <inheritdoc />
-    public partial class Primer : Migration
+    public partial class BD : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Huesped",
+                columns: table => new
+                {
+                    DNI = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Nombres = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Apellidos = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    checking = table.Column<bool>(type: "bit", maxLength: 30, nullable: false),
+                    Num_Hab = table.Column<int>(type: "int", nullable: false),
+                    PersonaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Huesped", x => x.DNI);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Reservas",
                 columns: table => new
@@ -38,7 +54,6 @@ namespace Reservas.BData.Migrations
                     Estado = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     Precio = table.Column<decimal>(type: "Decimal(10,2)", maxLength: 10, nullable: false),
                     Senia = table.Column<decimal>(type: "Decimal(10,2)", maxLength: 10, nullable: false),
-                    idres = table.Column<int>(type: "int", nullable: false),
                     ReservaId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -74,28 +89,6 @@ namespace Reservas.BData.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Huesped",
-                columns: table => new
-                {
-                    DNI = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Nombres = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Apellidos = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    checking = table.Column<bool>(type: "bit", maxLength: 30, nullable: false),
-                    Num_Hab = table.Column<int>(type: "int", nullable: false),
-                    PersonaId = table.Column<int>(type: "int", nullable: false),
-                    HabitacionNhab = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Huesped", x => x.DNI);
-                    table.ForeignKey(
-                        name: "FK_Huesped_Habitaciones_HabitacionNhab",
-                        column: x => x.HabitacionNhab,
-                        principalTable: "Habitaciones",
-                        principalColumn: "Nhab");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "Habitacion_Nhab_UQ",
                 table: "Habitaciones",
@@ -114,11 +107,6 @@ namespace Reservas.BData.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Huesped_HabitacionNhab",
-                table: "Huesped",
-                column: "HabitacionNhab");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Persona_ReservaId",
                 table: "Persona",
                 column: "ReservaId");
@@ -134,13 +122,13 @@ namespace Reservas.BData.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Habitaciones");
+
+            migrationBuilder.DropTable(
                 name: "Huesped");
 
             migrationBuilder.DropTable(
                 name: "Persona");
-
-            migrationBuilder.DropTable(
-                name: "Habitaciones");
 
             migrationBuilder.DropTable(
                 name: "Reservas");
