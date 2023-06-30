@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Reservas.BData.Data.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reservas.BData
 {
@@ -24,6 +19,16 @@ namespace Reservas.BData
                 o.Property(b => b.Senia).HasColumnType("Decimal(10,2)");
             });
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Habitacion>().HasData(new Habitacion 
+            {
+                Nhab=1,
+                camas=20,
+                Estado="Reservada",
+                Precio=200,
+                Senia=30
+            });
+
         }
 
     }

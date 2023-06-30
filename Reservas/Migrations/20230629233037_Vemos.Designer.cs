@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Reservas.BData;
 
@@ -11,9 +12,11 @@ using Reservas.BData;
 namespace Reservas.BData.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20230629233037_Vemos")]
+    partial class Vemos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,17 +57,10 @@ namespace Reservas.BData.Migrations
 
                     b.HasIndex("ReservaId");
 
-                    b.ToTable("Habitaciones");
+                    b.HasIndex(new[] { "Nhab" }, "Habitacion_Nhab_UQ")
+                        .IsUnique();
 
-                    b.HasData(
-                        new
-                        {
-                            Nhab = 1,
-                            Estado = "Reservada",
-                            Precio = 200m,
-                            Senia = 30m,
-                            camas = 20
-                        });
+                    b.ToTable("Habitaciones");
                 });
 
             modelBuilder.Entity("Reservas.BData.Data.Entity.Huespedes", b =>

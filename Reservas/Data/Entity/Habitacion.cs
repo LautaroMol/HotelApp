@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Reservas.BData.Data.Entity
 {
-    [Index(nameof(Nhab), Name = "Habitacion_Nhab_UQ", IsUnique=true)]
+    //[Index(nameof(Nhab), Name = "Habitacion_Nhab_UQ", IsUnique=true)]
+
+    [PrimaryKey(nameof(Nhab))]
     public class Habitacion
     {
-		[Key] public int Nhab { get; set; }
+		public int Nhab { get; set; }
         [Required(ErrorMessage = "El numero de camas es Obligatorio")]
         [MaxLength(2, ErrorMessage = "Solo se aceptan hasta 2 caracteres en el numero de camas")]
         public int camas { get; set; }

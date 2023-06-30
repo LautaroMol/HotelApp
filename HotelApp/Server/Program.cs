@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Reservas.BData;
@@ -13,7 +12,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<Context>(opciones => opciones.UseSqlServer("name=Conn"));
 
 builder.Services.AddSwaggerGen(c =>
-c.SwaggerDoc("V1", new OpenApiInfo { Title = "Habitaciones", Version = "v1" })
+c.SwaggerDoc("v1", new OpenApiInfo { Title = "Habitaciones", Version = "v1" })
 );
 
 var app = builder.Build();
