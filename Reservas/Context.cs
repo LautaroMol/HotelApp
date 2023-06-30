@@ -15,6 +15,7 @@ namespace Reservas.BData
         {
             modelBuilder.Entity<Habitacion>(o =>
             {
+                o.HasKey(b => b.Nhab);
                 o.Property(b => b.Precio).HasColumnType("Decimal(10,2)");
                 o.Property(b => b.Senia).HasColumnType("Decimal(10,2)");
             });

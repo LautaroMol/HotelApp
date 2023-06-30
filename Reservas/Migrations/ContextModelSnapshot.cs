@@ -32,22 +32,18 @@ namespace Reservas.BData.Migrations
 
                     b.Property<string>("Estado")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Precio")
-                        .HasMaxLength(10)
                         .HasColumnType("Decimal(10,2)");
 
                     b.Property<int?>("ReservaId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Senia")
-                        .HasMaxLength(10)
                         .HasColumnType("Decimal(10,2)");
 
                     b.Property<int>("camas")
-                        .HasMaxLength(2)
                         .HasColumnType("int");
 
                     b.HasKey("Nhab");

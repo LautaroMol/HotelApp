@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Reservas.BData.Migrations
 {
     /// <inheritdoc />
-    public partial class BD : Migration
+    public partial class Correcion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -50,10 +50,10 @@ namespace Reservas.BData.Migrations
                 {
                     Nhab = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    camas = table.Column<int>(type: "int", maxLength: 2, nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Precio = table.Column<decimal>(type: "Decimal(10,2)", maxLength: 10, nullable: false),
-                    Senia = table.Column<decimal>(type: "Decimal(10,2)", maxLength: 10, nullable: false),
+                    camas = table.Column<int>(type: "int", nullable: false),
+                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Precio = table.Column<decimal>(type: "Decimal(10,2)", nullable: false),
+                    Senia = table.Column<decimal>(type: "Decimal(10,2)", nullable: false),
                     ReservaId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -89,11 +89,10 @@ namespace Reservas.BData.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "Habitacion_Nhab_UQ",
+            migrationBuilder.InsertData(
                 table: "Habitaciones",
-                column: "Nhab",
-                unique: true);
+                columns: new[] { "Nhab", "Estado", "Precio", "ReservaId", "Senia", "camas" },
+                values: new object[] { 1, "Reservada", 200m, null, 30m, 20 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Habitaciones_ReservaId",

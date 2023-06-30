@@ -12,8 +12,8 @@ using Reservas.BData;
 namespace Reservas.BData.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230628205843_BD")]
-    partial class BD
+    [Migration("20230630025453_Correcion")]
+    partial class Correcion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,32 +35,35 @@ namespace Reservas.BData.Migrations
 
                     b.Property<string>("Estado")
                         .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Precio")
-                        .HasMaxLength(10)
                         .HasColumnType("Decimal(10,2)");
 
                     b.Property<int?>("ReservaId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Senia")
-                        .HasMaxLength(10)
                         .HasColumnType("Decimal(10,2)");
 
                     b.Property<int>("camas")
-                        .HasMaxLength(2)
                         .HasColumnType("int");
 
                     b.HasKey("Nhab");
 
                     b.HasIndex("ReservaId");
 
-                    b.HasIndex(new[] { "Nhab" }, "Habitacion_Nhab_UQ")
-                        .IsUnique();
-
                     b.ToTable("Habitaciones");
+
+                    b.HasData(
+                        new
+                        {
+                            Nhab = 1,
+                            Estado = "Reservada",
+                            Precio = 200m,
+                            Senia = 30m,
+                            camas = 20
+                        });
                 });
 
             modelBuilder.Entity("Reservas.BData.Data.Entity.Huespedes", b =>

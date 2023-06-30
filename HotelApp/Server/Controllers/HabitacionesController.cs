@@ -29,6 +29,36 @@ namespace HotelApp.Server.Controllers
             await context.SaveChangesAsync();
             return Ok();
         }
-        //debuggear con swagger
+
+        [HttpPut]
+
+        public async Task<ActionResult> Put(Habitacion habitacion,int nrohab)
+        {
+            var habitacion1 = await context.Habitaciones.FirstOrDefaultAsync(c => c.Nhab==nrohab);
+
+            if (habitacion1 is null)
+            {
+                return NotFound("No se encontro la habitacion para ser actualizada");
+            }
+            context.Update(habitacion1);
+            await context.SaveChangesAsync();
+            return Ok(habitacion);
+        }
+
+        [HttpDelete]
+
+        public async Task<ActionResult> Delete(int nrohab)
+        {
+            var habitacion = await context.Habitaciones.FirstOrDefaultAsync(c => c.Nhab==nrohab);
+
+            if (habitacion is null)
+            {
+                return NotFound("No encontro la habitacion para ser borrada");
+            }
+
+            context.Remove(habitacion);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
