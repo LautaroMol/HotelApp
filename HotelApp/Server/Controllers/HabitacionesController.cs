@@ -16,15 +16,38 @@ namespace HotelApp.Server.Controllers
             this.context = context;
         }
 
+
         [HttpGet]
         public async Task<ActionResult<List<Habitacion>>> Get()
         {
             return await context.Habitaciones.ToListAsync();
         }
-        
+
+        [HttpGet("int:nrohab")]
+
+        public async Task<ActionResult<Habitacion>> GetNroHabitacion(int nrohab)
+        {
+            var buscar = await context.Habitaciones.AllAsync(c=>c.Nhab.Equals(nrohab));
+
+            if (!buscar)
+            {
+                return BadRequest($"No se encontro la habitacion de nro {nrohab}");
+            }
+
+            return Ok(buscar);
+        }
+
         [HttpPost] 
         public async Task<ActionResult> Post(Habitacion habitacion)
         {
+            var FiltrarPost = await context.Habitaciones.
+                AnyAsync(c => c.Nhab.Equals(habitacion.Nhab));
+                
+            if (FiltrarPost)
+            {
+                return BadRequest($"Ya existe una habitacion con el numero {habitacion.Nhab} agregada ");
+            }
+
             context.Add(habitacion);
             await context.SaveChangesAsync();
             return Ok();
@@ -34,13 +57,13 @@ namespace HotelApp.Server.Controllers
 
         public async Task<ActionResult> Put(Habitacion habitacion,int nrohab)
         {
-            var habitacion1 = await context.Habitaciones.FirstOrDefaultAsync(c => c.Nhab==nrohab);
+            var existe = await context.Habitaciones.FirstOrDefaultAsync(c => c.Nhab==nrohab);
 
-            if (habitacion1 is null)
+            if (existe is null)
             {
                 return NotFound("No se encontro la habitacion para ser actualizada");
             }
-            context.Update(habitacion1);
+            context.Update(habitacion);
             await context.SaveChangesAsync();
             return Ok(habitacion);
         }
@@ -57,6 +80,15 @@ namespace HotelApp.Server.Controllers
             }
 
             context.Remove(habitacion);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost("AgregarMuchasHabitaciones")]
+
+        public async Task<ActionResult> PostHabitaciones(List<Habitacion> habitaciones)
+        {
+            context.Add(habitaciones);
             await context.SaveChangesAsync();
             return Ok();
         }
