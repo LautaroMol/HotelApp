@@ -24,17 +24,16 @@ namespace HotelApp.Server.Controllers
         }
 
         [HttpGet("int:nrohab")]
-
         public async Task<ActionResult<Habitacion>> GetNroHabitacion(int nrohab)
         {
-            var buscar = await context.Habitaciones.AllAsync(c=>c.Nhab.Equals(nrohab));
+            var buscar = await context.Habitaciones.FirstOrDefaultAsync(c => c.Nhab==nrohab);
 
-            if (!buscar)
+            if (buscar is null)
             {
-                return BadRequest($"No se encontro la habitacion de nro {nrohab}");
+                return BadRequest($"No se encontro la habitacion de numero: {nrohab}");
             }
 
-            return Ok(buscar);
+            return buscar;
         }
 
         [HttpPost] 
@@ -42,7 +41,7 @@ namespace HotelApp.Server.Controllers
         {
             var FiltrarPost = await context.Habitaciones.
                 AnyAsync(c => c.Nhab.Equals(habitacion.Nhab));
-                
+
             if (FiltrarPost)
             {
                 return BadRequest($"Ya existe una habitacion con el numero {habitacion.Nhab} agregada ");
@@ -88,7 +87,7 @@ namespace HotelApp.Server.Controllers
 
         public async Task<ActionResult> PostHabitaciones(List<Habitacion> habitaciones)
         {
-            context.Add(habitaciones);
+            context.AddRange(habitaciones);
             await context.SaveChangesAsync();
             return Ok();
         }

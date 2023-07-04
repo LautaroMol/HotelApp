@@ -20,5 +20,9 @@ namespace Reservas.BData.Data.Entity
         public decimal Precio { get; set; }
         public decimal Senia { get; set; }
 
+        public static implicit operator Habitacion(List<Habitacion> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
